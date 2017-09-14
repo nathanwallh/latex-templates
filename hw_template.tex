@@ -14,17 +14,20 @@
 
 
 \begin{document} 
-% macros: course name, homework number, lecturer, tutorer, date
+% macros: course name, homework number, lecturer, 
+%% tutorer, hebrew date, due date
 \newcommand{\coursename}{שיטות הסתברותיות}
-\newcommand{\hwnumber}[1]{ תרגיל בית מספר #1}
-\newcommand{\tutorer}{ נתן ולהיימר }
-\newcommand{\hebrewdate}{ סמסטר א' תשע"ח }
+\newcommand{\hwnumber}[1]{תרגיל בית מספר #1}
+\newcommand{\tutorer}{נתן ולהיימר}
+\newcommand{\hebrewdate}{סמסטר א' תשע"ח}
+\newcommand{\duedate}[1]{מועד הגשה: #1}
 
-% setting up the footer
+% setting up footer and header
 \pagestyle{fancy}
 \fancyhead{}
 \renewcommand{\headrulewidth}{0cm}
 \fancyfoot{}
+\fancyhead[LE,LO]{ \today }
 \fancyfoot[RE,RO]{\thepage}
 \fancyfoot[LE,LO]{ מתרגל: \tutorer, \hebrewdate}
 
@@ -32,9 +35,9 @@
 \begingroup 
 \color{BrickRed}
 \centering
-  \huge \textbf{\coursename}\\[0.5cm]
-  \Large \hwnumber{1} \\[0.3cm]
-  \large \today \par
+  \huge \textbf{\coursename}\\[0.1cm]
+  \Large \hwnumber{1} \\[0.1cm]
+  \large \duedate{ \today } \par
 \endgroup
 
 % body
