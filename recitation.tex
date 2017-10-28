@@ -1,0 +1,228 @@
+\documentclass[12pt,a4paper]{article}
+% these 3 make the hebrew work (ucs is from the culmus-latex package)
+\usepackage{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[english,hebrew]{babel}
+% colors package with options to use color names in english
+\usepackage[usenames,dvipsnames]{xcolor}
+\usepackage{color}
+% standard package for math symbols and equations
+\usepackage{amsmath}
+% package to change the page layout
+\usepackage[margin=2cm]{geometry}
+% package for footers and headers
+\usepackage{fancyhdr}
+%package for enumerate
+\usepackage{enumitem}
+% package for images
+\usepackage{graphicx}
+
+\begin{document} 
+% macros: course name, homework number, lecturer, 
+%% tutorer, hebrew date, due date
+\newcommand{\coursename}{שיטות הסתברותיות}
+\newcommand{\recnumber}[1]{תרגול מספר #1}
+\newcommand{\tutorer}{נתן ולהיימר}
+
+% environments
+\newenvironment{Solution}{\\ \textcolor{ForestGreen}{\textit{פיתרון:}} \\ \small}
+
+% macros
+\newcommand{\Example}[0]{\textcolor{OliveGreen}{\textit{דוגמא. }}}
+
+
+% setting up footer and header
+\pagestyle{fancy}
+\fancyhead{}
+\renewcommand{\headrulewidth}{0cm}
+\fancyfoot{}
+% \fancyhead[LE,LO]{ \today }
+\fancyfoot[RE,RO]{\thepage}
+% \fancyfoot[LE,LO]{ מתרגל: \tutorer}
+
+% setting up the title
+\begingroup 
+\color{BrickRed}
+\centering
+  \huge \textbf{\coursename}\\[0.1cm]
+  \Large \recnumber{1} \\[0.1cm]
+\endgroup
+\begin{flushleft}
+מטרת תרגול זה הינה לתת לסטודנטים כלים בהם יוכלו להשתמש לחקירת תהליכים אקראיים )תהליכים שאנו לא יכולים לחזות את תוצאתם, או שאין בהם תבנית ברורה(. הכלי הבסיסי הינו מודל מתמטי שיאפשר לנו לתאר ניסוי, אשר לו יש כמה תוצאות אפשריות. לתוצאות אלו מותאמים מספרים בין 0 ל-1 המתארים עד כמה אנחנו חושבים שתוצאות אלו יקרו בניסוי, עוד לפני שביצענו אותו. להלן המודל המתמטי במלואו:
+\begin{itemize}
+\item \textcolor{Violet}{\textit{הגדרה.}} קבוצת התוצאות האפשריות של ניסוי נקראת \textbf{מרחב מדגם} ומסומנת באות האנגלית $\Omega$ )אומגה(. \\
+\Example בניסוי של הטלת מטבע; $\Omega = \{H,T\}$.\\
+\Example בניסוי של זריקת קובייה; $\Omega=\{1,2,3,4,5,6\}$. \\
+אך מה אם בניסוי שאנו חוקרים מעניינת אותנו יותר מתוצאה אפשרית אחת? למשל, שבזריקת קובייה יצא מספר זוגי? לשם כך אנו נאחד את קבוצת התוצאות שמעניינות אותנו לתת קבוצה, לה אנו קוראים מאורע.
+\item \textcolor{Violet}{\textit{הגדרה.}} תת קבוצה $A \subseteq \Omega$ נקראת \textbf{מאורע}. \\
+\textcolor{OliveGreen}{\textit{דוגמא.}} בניסוי זריקת הקובייה, אם התוצאה שמעניינת אותנו היא שהמספר שיצא הינו זוגי, אנו יכולים להגדיר מאורע $A=\{2,4,6\}$.
+\item \textcolor{Violet}{\textit{הגדרה.}} בהינתן מרחב מדגם $\Omega$, פונקצייה $P$ נקראת \textbf{פונקציית הסתברות} אם:
+\begin{enumerate}
+\item $P:2^{\Omega} \rightarrow [0,1]$ \quad )תזכורת: $2^\Omega$ הוא סימון אלטרנטיבי לקבוצת כל תתי הקבוצות של $\Omega$(
+\item $P(\Omega)=1$
+\item עבור כל שני מאורעות זרים $B,A \in 2^{\Omega}$, מתקיים: $P(A \cup B) = P(A) + P(B)$.
+\end{enumerate}
+\end{itemize}
+\textcolor{Violet}{\textit{הגדרה.}} הזוג $(\Omega,P)$ נקרא \textbf{מרחב הסתברות}.
+\end{flushleft}
+\textcolor{OliveGreen}{\textit{דוגמאות למרחבי הסתברות שכיחים}}:
+\begin{enumerate}
+\item מרחב הטלת מטבע.
+\begin{center}
+$\Omega = \{H,T\}$ \\
+$P(\{H\}) = P(\{T\}) = \frac{1}{2}$
+\end{center}
+\item מרחב זריקת קובייה. 
+\begin{center}
+$\Omega = \{1,2,3,4,5,6\}$ \\
+$P(\{1\})=P(\{2\}) = \dots = P(\{6\}) = \frac{1}{6}$
+\end{center}
+\item מרחב זריקת שתי קוביות.
+\begin{center}
+$\Omega=\{(H,H),(H,T),(T,H),(T,T)\}$ \\
+$P(\{(H,H)\}) = P(\{(H,T)\}) = P(\{(T,T)\}) = P(\{(T,T)\}) = \frac{1}{4}$
+\end{center}
+\end{enumerate}
+\textcolor{Orange}{\textit{הערה.}} שימו לב לתכונה מעניינת של מרחבי ההסתברות הנ"ל: לכל האיברים ב-$\Omega$ יש את אותה הסתברות! \\
+\textcolor{Violet}{\textit{הגדרה.}} \textbf{מרחב הסתברות אחיד} הוא מרחב הסתברות $(\Omega,P)$ בו לכל איבר $\omega \in \Omega$ מתקיים כי:
+\begin{center}
+$P(\{\omega\}) = \frac{1}{\Omega}$.
+\end{center}
+\textcolor{Red}{\textit{משפט.}} במרחבי הסתברות אחידים, ההסתברות לכל מאורע $A$ היא:
+\begin{center}
+$P(A) = \frac{\lvert A \rvert}{\lvert \Omega \rvert}$
+\end{center}
+\vbox{
+שימו לב שכדי לתאר פונקציית הסתברות במלואה, אין צורך להגדיר את ערכה עבור כל תת קבוצה של $\Omega$. מספיק להגדיר את ערכה רק עבור המאורעות שמכילים איבר אחד בלבד. זאת משום שלפי התכונה השלישית של פונקציות הסתברות, לכל תת קבוצה  $A \subseteq \Omega$ מתקיים כי:
+\begin{center}
+$P(A) = P(\bigcup\limits_{s \in A} \{s\})=\sum\limits_{s \in A} P(\{s\})$
+\end{center}
+}
+מכך גם נובע המשפט הנ"ל, שכן, במרחבי הסתברות אחידים:
+\begin{center}
+$\sum\limits_{s \in A} P(\{s\}) = \sum\limits_{s \in A} \frac{1}{\lvert \Omega \rvert} = \frac{\lvert A \rvert}{\lvert \Omega \rvert}$
+\end{center}
+\bigskip
+
+\vbox{
+\begingroup 
+\color{MidnightBlue}
+\Large \textbf{\underline{תכונות של מרחבי הסתברות}} \\
+\endgroup
+\begin{enumerate}
+\item $P( \emptyset ) = 0$ 
+\item $P( \bar{A} ) = 1-P(A)$
+\item $A \subseteq B \Rightarrow P(A) \leq P(B)$
+\item $P(A \cup B) \leq P(A) + P(B)$
+\item עקרון ההכלה וההדחה להסתברות.
+\begin{center}
+$A_1 , A_2 \ldots A_n \in 2^{\Omega}:$ \\
+$P(A_1 \cup A_2 \cup \dots \cup A_n ) = \sum\limits_{i=1}^{n} P(A_i) - \sum\limits_{i \neq j} P(A_i \cap A_j) + \sum\limits_{i \neq j \neq k} P(A_i \cap A_j \cap A_k) \dotsm (-1)^{n+1} \cdot P(A_1 \cap A_2 \dots \cap A_n)$
+\end{center}
+\end{enumerate}
+}
+
+\bigskip
+\begingroup 
+\color{MidnightBlue}
+\Large \textbf{\underline{תרגילים בהסתברות}} \\
+\endgroup
+
+\begin{enumerate}[label=\textcolor{BurntOrange}{שאלה \arabic*: }]
+\item זורקים קובייה. מה היא ההסתברות שהמספר שיצא גדול או שווה 5? 
+\begin{Solution}
+מרחב המדגם שלנו הוא $\Omega = \{1,2,3,4,5,6\}$, וזה מרחב הסתברות אחיד. \\
+נסמן את המאורע המעניין ב-$A$, והרי ש: $A=\{5,6\}$. \\
+מכיוון שזה מרחב הסתברות אחיד, אז $P(A) = \frac{\lvert A \rvert}{\lvert \Omega \rvert}$. \\
+ולכן: $P(A) = \frac{2}{6}$.
+\end{Solution}
+\item בוחרים באקראי 4 ספרות מתוך $\{0,1,2 \ldots 9 \}$, עם חזרות, ורושמים אותם זה אחר זה. מה היא ההסתברות שהמספר 1 כן מופיע?
+\begin{Solution}
+מרחב מדגם מתאים לבעיה זו הוא $\Omega=\{ 0000, 0001, \ldots 9999 \}$. גם מרחב הסתברות זה הוא אחיד, שכן בחרנו כל רביעייה כזה על ידי בחירות בלתי תלויות של ספרות. \\
+מכיוון שמרחב הסתברות זה הוא אחיד, כדאי לנו לחשב את $\lvert \Omega \rvert$ כבר עכשיו. כל איבר ב $\Omega$ הוא רביעיה סדורה, וכל אלמנט ברביעייה הוא אחד מ-01 סוגי ספרות אפשריות. \\
+לכן מספר האיברים ב $\Omega$ הינו $10 \times 10 \times 10 \times 10$, כלומר: $\lvert \Omega \rvert = 10^4$. \\
+כעת נסמן את המאורע המעניין ב-$A$, הלוא היא קבוצת כל הרביעיות בהן המספר 1 כן מופיע. ניתן לחשב את $P(A)$ בשתי דרכים. בדרך הראשונה מחשבים את $\lvert A \rvert$. בדרך השנייה מחשבים את $\lvert \bar{A} \rvert$, ואז $P(A) = 1-P(\bar{A})$. 
+
+\textit{פיתרון בדרך השנייה.} הפירוש המילולי של $\bar A$ הוא "קבוצת כל הרביעיות שאינן מכילות 1ים". יש תשע ספרות שהן לא 1, ולכן $\lvert \bar A \rvert = 9^4$. מכך נובע כי $P(A) = 1- \frac{9^4}{10^4}$.
+
+\textit{פיתרון בדרך הראשונה.} הקבוצה $A$ היא קבוצת כל הוקטורים המכילים את הספרה 1. חלקם מכילים \textbf{בדיוק פעם אחת} את הספרה 1, אותם נאחד לקבוצה $A_1$. \textbf{חלקם מכילים בדיוק פעמיים} את הספרה 1, אותם נאחד לקבוצה $A_2$. \textbf{חלקם מכילים בדיוק 3 פעמים} את הספרה 1, אותם נאחד לקבוצה $A_3$. השאר מכילים את הרביעיות המכילות \textbf{בדיוק 4 פעמים} את הספרה 1 )למעשה, יש רק רביעייה אחת כזו(, ואותם )אותו( נאחד לקבוצה $A_4$. \\
+הגדרנו חלוקה זרה של $A$ לקבוצות, כלומר $A = A_1 \cup A_2 \cup A_3 \cup A_4$, ולכן: $\lvert A \rvert = \lvert A_1 \rvert + \lvert A_2 \rvert + \lvert A_3 \rvert + \lvert A_4 \rvert$. \\
+נחשב את $\lvert A_1 \rvert$ באופן הבא: בכל וקטור ב-$A_1$ יש בדיוק ספרה אחת שהיא 1, והיא יכולה להופיע באחד מ-4 מקומות: 1\_\_\_, \_1\_\_, \_\_1\_, \_\_\_1. שלושת הספרות האחרות הן שונות מ-1. לכן: $\lvert A_1 \rvert = 4 \times 9^3$.\\
+ב-$A_2$, יש $6=\binom{4}{2}$ מקומות בהם יכולים להופיע שני אחדים: 11\_\_, 1\_1\_, 1\_\_1, \_11\_, \_1\_1, \_\_11. בשאר המקומות יש ספרות שונות מ-1, ולכן $\lvert A_2 \rvert = \binom{4}{2} \times 9^2$. באופן דומה, $\lvert A_3 \rvert = \binom{4}{3} 9^1$ וגם $\lvert A_4 \rvert = \binom{4}{4} \times 9^0$.\\
+לכן: $\lvert A \rvert = \binom{4}{1} \times 9^3 + \binom{4}{2} \times 9^2 + \binom{4}{3} \times 9^1 + \binom{4}{4} 9^0 = 3439$.
+
+ומכך נובע כי: $P(A) = \frac{3439}{10^4}$.
+\end{Solution}
+\end{enumerate}
+
+\bigskip
+\begingroup 
+\color{MidnightBlue}
+\Large \textbf{\underline{חזרה על קומבינטוריקה}} \\
+\endgroup
+
+\begin{enumerate}[label=\textcolor{BurntOrange}{שאלה \arabic*: }]
+\item בכמה דרכים ניתן לסדר $n$ איברים שונים? )דוגמא ל-$n$ איברים שונים: $\{1,2, \ldots ,n \}$(
+\begin{Solution}
+כדי לסדר $n$ איברים, אנחנו צריכים להחליט מי יהיה הראשון, מי יהיה השני וכו'. יש $n$ בחירות אפשרויות למי יהיה האיבר הראשון. לאחר מכן, לא ניתן לבחור אותו מחדש, ולכן יש רק $n-1$ בחירות אפשריות למי יהיה האיבר השני. באופן דומה, יש $n-2$ בחירות אפשריות למי יהיה האיבר השלישי, וכך הלאה עד שאנו נשארים עם בחירה אפשרית אחת לאיבר האחרון. בסך הכל:
+\begin{center}
+$n\cdot(n-1)\cdot(n-2) \cdots 1 = n!$
+\end{center}
+אפשרויות לסידור $n$ האיברים.
+\end{Solution}
+\item \textit{מקדם בינומי.} כמה תתי קבוצות שונות בגודל $k$ יש לקבוצה בגודל $n$? )$k \leq n$( \\
+\begin{Solution}
+נתחיל עם קבוצה ריקה, ונמלא אותה ע"י בחירות מתוך הקבוצה בגודל $n$ עד שהיא תהיה בגודל $k$. \\
+יש $n$ בחירות אפשריות לאיבר הראשון, $n-1$ בחירות אפשרויות לאיבר השני, וכך הלאה... אך בניגוד לשאלה הקודמת, אנו מפסיקים לבחור איברים חדשים ברגע שסיימנו לבחור $k$ איברים שונים. מספר התוצאות השונות של התהליך המתואר הוא:
+\begin{center}
+$n\cdot(n-1)\cdot(n-2) \cdots (n-k+1) = \frac{n!}{(n-k)!}$
+\end{center}
+עם זאת, יש לנו טעות ספירה: כל קבוצה אפשרית בגודל $k$ ספרנו $k!$ פעמים. פעם אחת עבור כל סידור אפשרי שלה. לכן אנו מחלקים ב $k!$ ומקבלים את התשובה:
+\begin{center}
+$\frac{n!}{k!(n-k)!} = \binom{n}{k}$
+\end{center}
+\end{Solution}
+\item \textit{מקדם מולטינומי.} בכמה דרכים שונות ניתן לחלק $n$ איברים שונים, ל-$k$ אנשים, כך שהראשון מקבל $x_1$, השני מקבל $x_2$, השלישי מקבל $x_3$, $\dots$ וה$k$-י מקבל $x_k$? )$x_1 + x_2 \dots + x_k = n $( 
+\begin{Solution}
+ישנן שתי דרכים לפתור בעיה זו. \\
+\textit{הדרך הראשונה}. נבחר $x_1$ איברים לאדם הראשון ב $\binom{n}{x_1}$ דרכים. לאדם השני, אנו צריכים לבחור $x_2$ איברים מתוך קבוצה מצומצמת של $n-x_1$ איברים )כי האדם הראשון כבר קיבל את שלו(, וזאת ניתן לעשות ב $\binom{n-x_1}{x_2}$ דרכים שונות. לאדם השלישי נשארו $n-x_1-x_2$ איברים לבחור מהם ולכן יש לו $\binom{n-x_1-x_2}{x_3}$ בחירות אפשריות, וכך הלאה... בסך הכל, מספר הדרכים הוא:
+\begin{equation*}
+\begin{split}
+&\binom{n}{x_1} \times \binom{n-x_1}{x_2} \times \binom{n-x_1-x_2}{x_3} \times \cdots \binom{n-x_1 - x_2 \cdots - x_{k-1}}{x_k} = \\
+& \frac{n!}{x_1 ! (n-x_1)!} \times \frac{(n-x_1)!}{x_2!(n-x_1-x_2)!} \times \frac{(n-x_1-x_2)!}{x_3!(n-x_1-x_2-x_3)!}\cdots \times \frac{n - x_1 - x_2 \cdots -x_{k-1}}{x_{k}!(n - x_1 - x_2 \cdots - x_{k})!} = \\
+& \frac{n!}{x_1 ! x_2 ! \cdots x_k !} = \binom{n}{x_1 , x_2 \dots x_k}
+\end{split}
+\end{equation*}
+\textit{דרך שנייה.} נסדר את $n$ האיברים באחת מ-$n!$ האפשרויות. את $x_1$ האיברים הראשונים ניתן לאדם הראשון. את $x_2$ האיברים הבאים לאדם השני, וכך הלאה עד ל-$x_k$ האיברים האחרונים, אותם ניתן לאדם ה-$k$. \\
+לפי שיטה זו, כל חלוקה נספרת $x_1 !$ פעמים יותר מדי כי כל סידור פנימי ל- $x_1$ האיברים הראשונים אינו משנה את החלוקה. באופן דומה, יש $x_2 !$ ספירות מיותרות בגלל הסידורים הפנימיים של $x_2$ האיברים הבאים, וכך הלאה...\\
+לכן יש לחלק ב $x_1 !$, ב-$x_2!$, $\dots$וב- $x_k !$. אז מקבלים שהתשובה היא אכן $\frac{n!}{x_1 ! x_2 ! \cdots x_k! }$ .
+\end{Solution}
+\item מה מספר הפתרונות השלמים האי שליליים )גדולים או שווים 0( למשוואה: $x_1 + x_2 \cdots + x_k =n$?
+\begin{Solution}
+נרצה לקודד כל פיתרון באופן חח"ע ועל, כך שבמקום לספור את מספר הפתרונות, נספור את מספר הקידודים. הקידוד שבו נשתמש הוא כזה: \\
+פיתרון למשוואה מוגדר ע"י $n$ כדורים ו-$k-1$ חוצצים, הנמצאים בין הכדורים או בצדדים. לדוגמא:
+\begin{center}
+$| \circ \circ \circ \cdots \circ|| \circ| \circ \circ$
+\end{center}
+מספר הכדורים לפני החוצץ הראשון מספקים לנו את הערך של $x_1$. מספר הכדורים לפני החוצץ השני ואחרי החוצץ הראשון מספקים לנו את ערך $x_2$. באופן כללי: $x_i$ = מספר הכדורים לפני החוצץ ה-$i$.\\
+ומה עם $x_k$? מכיוון שיש רק $k-1$ חוצצים אז $x_k$ הוא מספר הכדורים שאחרי החוצץ ה-$k-1$.
+
+את בעיית ספירת הקידודים נפתור כך: נתחיל עם $x+k-1$ כדורים. מתוכם נבחר קבוצה של $k-1$, נזרוק אותם ונשים חוצצים במקומם. כך נישאר עם $k-1$ חוצצים ו-$n$ כדורים. לכן התשובה היא $\binom{n+k-1}{k-1}$.
+\end{Solution}
+\item \textit{עקרון ההכלה וההדחה.} עקרון ההכלה וההדחה מסייע לנו לחשב גדלים של קבוצות באופן הבא. נניח שנתונות קבוצות: $A_1 , A_2 \dots A_n$ וברצוננו לחשב את $\lvert A_1 \cup A_2 \cup \cdots \cup A_n \rvert$. לדוגמא, אם $n=3$ וברצוננו לחשב את השטח שנמצא בשלושת המעגלים הללו:
+\begin{center}
+\L {\includegraphics[scale=0.65]{Inclusion-exclusion.png}}
+\end{center}
+אז ניתן לעשות זאת כך:
+\begin{itemize}
+\item נתחיל עם סכום הגדלים: $\lvert A \rvert + \lvert B \rvert + \lvert C \rvert$.
+\item נפחית את החלקים שנספרו פעמיים: $-(\lvert A \cap B \rvert + \lvert A \cap C \rvert + \lvert B \cap C \rvert)$.
+\item אולם, החיתוך $A \cap B \cap C$ לא באמת נספר פעמיים בצעד הראשון, אלא 3 פעמים. לאחר מכן החסרנו אותו 3 פעמים, ולכן יש להוסיף את $\lvert A \cap B \cap C \rvert$ עוד פעם אחת בדיוק.
+\end{itemize}
+כך אנו מקבלים: $\lvert A \cup B \cup C \rvert = \lvert A \rvert + \lvert B \rvert + \lvert C \rvert - \lvert A \cap B \rvert - \lvert A \cap C \rvert - \lvert B \cap C \rvert + \lvert A \cap B \cap C \rvert$. \\
+והנוסחא הכללית היא:
+\begin{center}
+$\lvert A_1 \cup A_2 \cdots A_n \rvert = \sum\limits_{i=1}^n \lvert A_i \rvert - \sum\limits_{i \neq j} \lvert A_i \cap A_j \rvert \cdots (-1)^{n+1} \lvert A_1 \cap A_2 \cdots \cap A_n \rvert$
+\end{center}
+\end{enumerate}
+\end{document}
