@@ -27,32 +27,39 @@
 % questions, solutions
 \newcommand{\bluetitle}[1]{\begingroup \textcolor{MidnightBlue}{\Large{\textbf{\underline{#1}}}}\endgroup \\} 
 \newcommand{\coursename}{שיטות הסתברותיות}
-\newcommand{\hwnumber}[1]{תרגיל בית מספר #1}
+\newcommand{\recnumber}[1]{תרגול מספר #1}
 \newcommand{\tutorer}{נתן ולהיימר}
-\newcommand{\hebrewdate}{סמסטר א' תשע"ח}
-\newcommand{\duedate}[1]{מועד הגשה: #1}
+\newcommand{\theorem}{\textcolor{Red}{\textit{משפט.}} }
 \newcommand{\definition}{\textcolor{Violet}{\textit{הגדרה.}} }
 \newcommand{\example}{\textcolor{OliveGreen}{\textit{דוגמא. }}}
+\newcommand{\Note}{\textcolor{Orange}{\textit{הערה.}} }
 \newenvironment{solution}{\\ \textcolor{ForestGreen}{\textit{פיתרון:}} \\ \small}
 
 \begin{document} 
-
 % setting up footer and header
 \pagestyle{fancy}
 \fancyhead{}
 \renewcommand{\headrulewidth}{0cm}
 \fancyfoot{}
+% \fancyhead[LE,LO]{ \today }
 \fancyfoot[RE,RO]{\thepage}
+% \fancyfoot[LE,LO]{ מתרגל: \tutorer}
 % setting up the title
 \begingroup 
 \color{BrickRed}
 \centering
   \huge \textbf{\coursename}\\[0.1cm]
-  \Large \hwnumber{1} \\[0.1cm]
-  \large \duedate{ \today } \par
+  \Large \recnumber{1} \\[0.1cm]
 \endgroup
 
 %body
+
+\bluetitle{כותרת פנימית}
+זה טקסט ששייך לפסקה ראשונה \\
+טקסט טקסט טקסט טקסט
+
+זה טקסט ששיך לפסקה שנייה \\
+הרבה הרבה הרבה טקסט טקסט טקסט
 \begin{questions}
 \item שאלה מעניינת
 \item עוד שאלה מעניינת
@@ -61,4 +68,6 @@
 \end{solution}
 \end{questions}
 
+\bluetitle{עוד כותרת}
+עוד טקסט
 \end{document}
