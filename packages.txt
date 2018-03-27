@@ -1,0 +1,7 @@
+use synaptic pakcage manager to install:
+
+1. culmus
+2. culmus-latex (not sure if necessary)
+2. texlive-latex-extra
+3. texlive-xetex
+4. texlive-lang-other
